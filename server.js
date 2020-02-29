@@ -1,14 +1,39 @@
-const http = require("http");
-const hostname = '10.199.14.46';
-const port = 8010;
+//start the program
+var express = require('express');
+var app = express();
 
-const server = http.createServer((req, res) => {
+app.get('/', function (req, res) {
 
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hendra Ramadani\n');
+    var sql = require("mssql");
+
+    // config for your database
+    var config = {
+        user: 'sa',
+        password: 'SaSa1212',
+        server: '10.199.13.253', 
+        database: 'nrp05111740000055' 
+    };
+
+    // connect to your database
+    sql.connect(config, function (err) {
+
+        if (err) console.log(err);
+
+        // create Request object
+        var request = new sql.Request();
+
+        // query to the database and get the records
+
+        request.query("select * From [mahasiswa]", function (err, recordset) {            
+            if  (err) console.log(err)
+
+            // send records as a response
+            res.send(recordset);
+
+        });
+    });
 });
 
-server.listen(port, hostname, () => {
-    console.log('Server running at http://${hostname}:${port}/');
+var server = app.listen(8010, function () {
+    console.log('Server is running : 8010');
 });
