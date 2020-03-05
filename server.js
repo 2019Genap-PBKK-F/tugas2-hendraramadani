@@ -24,9 +24,9 @@ app.get("/", function (req, res) {
 
 //select all
 app.get("/api/mahasiswa", function (req, res) {
-   var qr = "SELECT * FROM [mahasiswa]";
+   var query = "SELECT * FROM [mahasiswa]";
    console.log('select data');
-   execute.execqr(res, qr, null);
+   execute.execqr(res, query, null);
 });
 
 //delete
@@ -34,16 +34,16 @@ app.delete('/api/mahasiswa/:id', function (req, res) {
    var param = [
       { name: 'id', sqltype: sql.Int, value: req.params.id }
     ]
-   var qr = "DELETE FROM [mahasiswa] WHERE id=@id";
+   var query = "DELETE FROM [mahasiswa] WHERE id=@id";
    console.log('delete data');
-   execute.execqr(res, qr, param);
+   execute.execqr(res, query, param);
 })
 
 //insert
 app.post('/api/mahasiswa',function(req,res){
-    var qr = "INSERT INTO [mahasiswa] (nrp,nama,jk,lahir,foto,aktif,angkatan) VALUES ('', '', '', '', '', '', '');"
+    var query = "INSERT INTO [mahasiswa] (nrp,nama,jk,lahir,foto,aktif,angkatan) VALUES ('', '', '', '', '', '', '');"
     console.log('insert data');
-    execute.execqr(res, qr, null);
+    execute.execqr(res, query, null);
 })
 
 //update
@@ -58,9 +58,9 @@ app.put('/api/mahasiswa/:id',function(req,res){
       { name: 'foto', sqltype: sql.VarChar, value: req.body.foto },
       { name: 'aktif', sqltype: sql.Bit, value: req.body.aktif }
     ]
-    var qr = "UPDATE [mahasiswa] SET nrp = @nrp, nama = @nama, jk = @jk, lahir = @lahir, foto = @foto, aktif = @aktif, angkatan = @angkatan WHERE id = @id;"
+    var query = "UPDATE [mahasiswa] SET nrp = @nrp, nama = @nama, jk = @jk, lahir = @lahir, foto = @foto, aktif = @aktif, angkatan = @angkatan WHERE id = @id;"
     console.log('update data');
-    execute.execqr(res, qr, param);
+    execute.execqr(res, query, param);
 })
 
 app.listen(8010, function () {
