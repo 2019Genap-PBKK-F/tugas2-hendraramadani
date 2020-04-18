@@ -241,7 +241,7 @@ app.post('/api/periode',function(req,res){
     execute.execqr(res, query, param);
 })
 
-//update
+//updatedd
 app.put('/api/periode/:id',function(req,res){
    var param = [
       { name: 'id', sqltype: sql.VarChar, value: req.body.id },
@@ -258,6 +258,12 @@ app.put('/api/periode/:id',function(req,res){
 //select
 app.get("/api/masterindikator", function (req, res) {
    var query = "SELECT * FROM [masterindikator]";
+   console.log('select masterindikator');
+   execute.execqr(res, query, null);
+});
+
+app.get("/api/dddatadasarid", function (req, res) {
+   var query = "SELECT id,nama as name FROM [datadasar]";
    console.log('select masterindikator');
    execute.execqr(res, query, null);
 });
