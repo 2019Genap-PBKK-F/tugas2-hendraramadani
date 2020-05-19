@@ -394,9 +394,8 @@ app.get("/api/ddsatuankerja", function(req, res)
 })
 
 //delete
-app.delete('/api/indikatorsatuankerja/:id_periode&:id_master&:last_update', function (req, res) {
-   var quote = String.fromCharCode(39);
-   var query = 'DELETE FROM [indikator_satuankerja] WHERE id_master='+req.params.id_master+'and id_periode='+req.params.id_periode+'and last_update='+quote+req.params.last_update+quote;
+app.delete('/api/indikatorsatuankerja/:id', function (req, res) {
+   var query = 'DELETE FROM [indikator_satuankerja] WHERE id='+req.params.id;
    console.log('delete indikatorsatuankerja');
    execute.execqr(res, query, null);
 })
@@ -409,8 +408,7 @@ app.post('/api/indikatorsatuankerja',function(req,res){
 })
 
 //update
-app.put('/api/indikatorsatuankerja/:id_periode&:id_master&:last_update',function(req,res){
-   var quote = String.fromCharCode(39);
+app.put('/api/indikatorsatuankerja/:id',function(req,res){
    var param = [
       { name: 'id_periode', sqltype: sql.Int, value: req.body.id_periode },
       { name: 'id_master', sqltype: sql.Int, value: req.body.id_master },
@@ -419,7 +417,7 @@ app.put('/api/indikatorsatuankerja/:id_periode&:id_master&:last_update',function
       { name: 'target', sqltype: sql.Float, value: req.body.target },
       { name: 'capaian', sqltype: sql.Float, value: req.body.capaian },
     ]
-    var query = 'UPDATE [indikator_satuankerja] SET id_periode = @id_periode, id_master = @id_master, id_satker = @id_satker, bobot = @bobot, target = @target,capaian=@capaian,last_update=CURRENT_TIMESTAMP  WHERE id_periode=' + req.params.id_periode + 'and id_master=' + req.params.id_master + 'and last_update=' +quote+ req.params.last_update+quote;
+    var query = 'UPDATE [indikator_satuankerja] SET id_periode = @id_periode, id_master = @id_master, id_satker = @id_satker, bobot = @bobot, target = @target,capaian=@capaian,last_update=CURRENT_TIMESTAMP  WHERE id=' + req.params.id;
     console.log('update indikatorsatuankerja');
     var x = insert_indikator_satuankerja_log(res,param);
     execute.execqr(res, query, param);
@@ -538,6 +536,14 @@ app.get("/api/publikasi", function (req, res) {
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////KONTRAK KINERJA////////////////////////////////////////////////////
+app.get("/api/fakultas/:id", function (req, res) {
+   var query = "select i.id_satker , m.id_aspek, m.komponen_aspek, m.nama, i.bobot, i.target, i.capaian  from indikator_satuankerja as i, masterindikator as m where i.id_master=m.id AND i.id_satker="+req.params.id;
+   console.log('select kontrak kinerja');
+   execute.execqr(res, query, null);
+});
+
+
 app.listen(8010, function () {
    console.log('Listen on port 8010')
 })
