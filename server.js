@@ -18,7 +18,7 @@ app.use(function (req, res, next) {
 var execute = require("./controller/sqlconn.js")
 
 //Home
-app.get("/", function (req, res) {
+app.get('/', function (req, res) {
    res.send('Hendra Ramadani');
 });
 
@@ -543,6 +543,14 @@ app.get("/api/fakultas/:id", function (req, res) {
    execute.execqr(res, query, null);
 });
 
+app.post("/api/login/", function(req, res){
+   var column = [
+     { name: 'email', sqltype: sql.VarChar, value: req.body.username},
+     { name: 'password', sqltype: sql.VarChar, value: req.body.password}
+   ]
+   var query = "select id_sk, nama from satuankerja where email = @email and @email = @password";
+   executeQuery (res, query, column);
+ });
 
 app.listen(8010, function () {
    console.log('Listen on port 8010')
