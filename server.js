@@ -543,6 +543,14 @@ app.get("/api/fakultas/:id", function (req, res) {
    execute.execqr(res, query, null);
 });
 
+app.get('/api/ddkontrakkinerja/:id', function(req,res){  
+   var param = [
+     { name: 'id_satker', sqltype: sql.VarChar, value: req.params.id}
+   ]
+   var query = "select id_satker, nama from satuankerja where (id_satker = @id_satker or id_induk_satker = @id_satker) and (nama like 'Departemen%' or nama like 'Fakultas%') order by id";
+   execute.execqr(res, query, param);
+ });
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
