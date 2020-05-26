@@ -544,12 +544,12 @@ app.get("/api/fakultas/:id", function (req, res) {
 });
 
 app.post("/auth/login/", function(req, res){
-   var params = [
+   var param = [
      { name: 'email', sqltype: sql.VarChar, value: req.body.username},
      { name: 'password', sqltype: sql.VarChar, value: req.body.password}
    ]
    var query = "select id_satker, nama from satuankerja where email = @email and @email = @password";
-   executeQuery (res, query, params);
+   executeQuery (res, query, param);
  });
 
 app.listen(8010, function () {
