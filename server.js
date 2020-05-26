@@ -548,7 +548,7 @@ app.post("/auth/login/", function(req, res){
      { name: 'email', sqltype: sql.VarChar, value: req.body.username},
      { name: 'password', sqltype: sql.VarChar, value: req.body.password}
    ]
-   var query = "select id_sk, nama from satuankerja where email = @email and @email = @password";
+   var query = "select id_satker, nama from satuankerja where email = @email and @email = @password";
    executeQuery (res, query, params);
  });
 
