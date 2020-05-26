@@ -543,6 +543,9 @@ app.get("/api/fakultas/:id", function (req, res) {
    execute.execqr(res, query, null);
 });
 
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.post("/auth/login/", function(req, res){
    var param = [
      { name: 'email', sqltype: sql.VarChar, value: req.body.username},
