@@ -538,7 +538,7 @@ app.get("/api/publikasi", function (req, res) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////KONTRAK KINERJA//////////////////////////////////////////////////////
 app.get("/api/fakultas/:id", function (req, res) {
-   var query = "select i.id_satker , m.id_aspek, m.komponen_aspek, m.nama, i.bobot, i.target, i.capaian, FORMAT(i.capaian/i.target * 100, 'P') as Persentase  from indikator_satuankerja as i, masterindikator as m where i.id_master=m.id AND i.id_satker="+req.params.id;
+   var query = "select i.id_satker , m.id_aspek, m.komponen_aspek, m.nama, i.bobot, i.target, i.capaian, (CASE WHEN i.capaian>= i.target THEN FORMAT(1, 'P') WHEN i.target > 0 THEN FORMAT(i.capaian/(i.target), 'P') else FORMAT(i.target , 'P') end ) as Persentase from indikator_satuankerja as i, masterindikator as m where i.id_master=m.id AND i.id_satker="+req.params.id;
    console.log('select kontrak kinerja');
    execute.execqr(res, query, null);
 });
